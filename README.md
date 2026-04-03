@@ -41,11 +41,6 @@ Instead of confusing documents and long support calls, Insurelp provides quick, 
 **Tools**
 - Git & GitHub  
 
----
-
-## 📂 Project Structure
-
-Insurelp/ │ ├── frontend/        # Mobile / UI application ├── backend/         # API & server logic ├── assets/          # Images & static files ├── docs/            # Documentation ├── .env             # Environment variables ├── package.json └── README.md
 
 ---
 
@@ -57,8 +52,10 @@ git clone https://github.com/Harshaa013/Insurelp.git
 cd Insurelp
 
 
+
 ## Installation dependencies
 npm install
+
 
 
 ## 🧠 How It Works
