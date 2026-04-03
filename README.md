@@ -1,27 +1,79 @@
 # 🛡️ Insurelp
 
-> AI-powered insurance assistant that simplifies policies, claims, and user support.
+> AI-powered insurance assistant that simplifies policies, claims, and customer support.
+
+<p align="center">
+  <b>Making Insurance Simple • Smart • Accessible</b>
+</p>
+
+---
+
+## 📌 Table of Contents
+
+- [🚀 Overview](#-overview)
+- [🎯 Problem Statement](#-problem-statement)
+- [💡 Solution](#-solution)
+- [✨ Features](#-features)
+- [🛠️ Tech Stack](#-tech-stack)
+- [⚙️ Installation](#️-installation)
 
 ---
 
 ## 🚀 Overview
 
-**Insurelp** is an intelligent insurance support platform designed to make insurance simple and accessible.  
-It helps users understand policies, get instant assistance, and navigate claim processes using AI.
+**Insurelp** is an AI-driven platform designed to eliminate confusion in the insurance domain.  
+It enables users to easily understand policies, receive instant support, and get guided assistance for claims.
 
-Instead of confusing documents and long support calls, Insurelp provides quick, clear, and personalized guidance.
+The platform bridges the gap between complex insurance documentation and user understanding using AI and an intuitive interface.
+
+---
+
+## 🎯 Problem Statement
+
+Insurance is often:
+- Complex and difficult to understand  
+- Filled with technical jargon  
+- Time-consuming when filing claims  
+- Dependent on slow customer support  
+
+Users struggle to make informed decisions, leading to poor policy choices and frustration.
+
+---
+
+## 💡 Solution
+
+**Insurelp solves this by:**
+- Providing an AI assistant for real-time query resolution  
+- Simplifying policy language into easy explanations  
+- Guiding users step-by-step through claim processes  
+- Offering smart recommendations based on user needs  
 
 ---
 
 ## ✨ Features
 
-- 🤖 AI Assistant – Get instant answers to insurance-related queries  
-- 📄 Policy Simplification – Converts complex insurance terms into easy language  
-- 🧾 Claim Guidance – Step-by-step help for filing claims  
-- 📊 Smart Recommendations – Suggests suitable insurance plans  
-- 📱 User-Friendly Interface – Clean and intuitive design  
+### 🤖 AI Chat Assistant
+- Real-time responses to insurance-related queries  
+- Context-aware and intelligent suggestions  
+
+### 📄 Policy Simplification
+- Converts complex legal jargon into plain language  
+- Helps users understand benefits, terms, and coverage  
+
+### 🧾 Claim Assistance
+- Step-by-step claim filing guidance  
+- Reduces errors and confusion  
+
+### 📊 Smart Recommendations
+- Suggests insurance plans tailored to user needs  
+- Based on input data and preferences  
+
+### 📱 User-Friendly UI
+- Clean, minimal, and responsive design  
+- Optimized for mobile devices  
 
 ---
+
 
 ## 🛠️ Tech Stack
 
@@ -55,6 +107,16 @@ cd Insurelp
 
 ## Installation dependencies
 npm install
+
+--Frontend
+cd frontend
+npm install
+
+--Backend
+cd backend
+npm install
+
+
 
 
 
