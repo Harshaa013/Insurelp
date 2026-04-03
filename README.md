@@ -118,10 +118,15 @@ npm install
 
 ---
 
+
 ## 🧠 How It Works
 User enters a query (e.g., insurance doubts, claims help)
 Backend processes the request
 AI model interprets and generates a response
 User receives clear, simplified output
+
+
+
+---
 
 
