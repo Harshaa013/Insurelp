@@ -36,7 +36,7 @@ Instead of confusing documents and long support calls, Insurelp provides quick, 
 - NLP-based models (AI-driven query handling)
 
 **Database**
-- Firebase / MongoDB (based on implementation)
+- Firebase 
 
 **Tools**
 - Git & GitHub  
