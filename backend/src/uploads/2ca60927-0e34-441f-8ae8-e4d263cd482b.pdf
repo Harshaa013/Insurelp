@@ -1,0 +1,13 @@
+
+Apollo Hospital
+Patient: John Doe
+Bill Number: INV-2023-001
+Admission Date: 2023-01-01
+Discharge Date: 2023-01-05
+Services:
+- Room Charges: 2000
+- Consultation: 1000
+- Medicines: 1500
+- Lab Tests: 500
+Total Amount: 5000
+

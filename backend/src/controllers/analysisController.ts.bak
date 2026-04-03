@@ -1,0 +1,74 @@
+import { Request, Response, NextFunction } from 'express';
+import { AppError } from '../utils/AppError';
+import { v4 as uuidv4 } from 'uuid';
+
+export const analyzeClaim = (req: Request, res: Response, next: NextFunction) => {
+    const { rejectionFileId, billFileId, admissionDate, dischargeDate, submissionDate } = req.body;
+
+    // Basic validation
+    if (!rejectionFileId || !billFileId) { //  || !admissionDate || !dischargeDate || !submissionDate
+        // Frontend might not send all dates? "Validate admission, discharge, and submission dates".
+        // If they are missing, it's a bad request.
+    }
+
+    if (!admissionDate || !dischargeDate || !submissionDate) {
+        return next(new AppError('All dates (admission, discharge, submission) are required', 400));
+    }
+
+    const admit = new Date(admissionDate);
+    const discharge = new Date(dischargeDate);
+    const submission = new Date(submissionDate);
+
+    if (isNaN(admit.getTime()) || isNaN(discharge.getTime()) || isNaN(submission.getTime())) {
+        return next(new AppError('Invalid date format', 400));
+    }
+
+    // Logic: Discharge >= Admission
+    if (discharge < admit) {
+        return next(new AppError('Discharge date cannot be before admission date', 400));
+    }
+
+    // Logic: Submission >= Discharge
+    if (submission < discharge) {
+        return next(new AppError('Claim submission date cannot be before discharge date', 400));
+    }
+
+    // Return mock analysis ID
+    const analysisId = uuidv4();
+
+    // In a real app, we would store the job in a DB. 
+    // For Phase 1, we just return the ID and the GET endpoint returns static data.
+
+    res.status(200).json({
+        status: 'success',
+        data: {
+            analysisId,
+            status: 'completed',
+            message: 'Analysis completed successfully (MOCK)'
+        }
+    });
+};
+
+export const getAnalysisResult = (req: Request, res: Response, next: NextFunction) => {
+    const { analysisId } = req.params;
+
+    // Return the specific mock response required by frontend
+    const mockResult = {
+        analysisId,
+        issue: "Pre-Auth Scope Mismatch",
+        description: "Based on our analysis, there may have been a procedural error regarding the pre-authorization scope vs final billing. The insurer likely rejected the claim claiming the procedure was outside the authorized limit, but failed to account for emergency exigencies documented in the discharge summary.",
+        checks: [
+            "Approved Amount vs. Procedure Billed",
+            "Missing Revision Request",
+            "Timeline Compliance Check",
+            "Policy Exclusion Verification"
+        ],
+        confidenceScore: 85, // Added for completeness if needed later
+        status: "completed"
+    };
+
+    res.status(200).json({
+        status: 'success',
+        data: mockResult
+    });
+};

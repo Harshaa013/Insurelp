@@ -1,0 +1,109 @@
+import { Request, Response, NextFunction } from 'express';
+import { AppError } from '../utils/AppError';
+import { v4 as uuidv4 } from 'uuid';
+import { ocrService } from '../services/ocr/ocrService';
+import path from 'path';
+
+export const analyzeClaim = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { rejectionFileId, billFileId, admissionDate, dischargeDate, submissionDate } = req.body;
+
+        // Phase 1: File IDs are filenames in uploads/
+        // We should probably check if files exist, but for now we assume they do if ID is present.
+        if (!rejectionFileId || !billFileId) {
+            // Ideally we check, but frontend might send nulls if upload failed?
+            // Let's enforce file presence for analysis.
+            if (!rejectionFileId || !billFileId) {
+                return next(new AppError('Both Rejection Letter and Hospital Bill must be uploaded', 400));
+            }
+        }
+
+        // --- OCR Step ---
+        // In a real app, this might be async/background job.
+        // Here we await it to simulate the "Analysis" phase.
+        const uploadsDir = path.join(__dirname, '../uploads');
+
+        // We assume fileId IS the filename as per uploadController
+        const rejectionPath = path.join(uploadsDir, rejectionFileId);
+        const billPath = path.join(uploadsDir, billFileId);
+
+        console.log('Triggering OCR for:', rejectionPath, billPath);
+
+        // Parallel OCR processing
+        const [rejectionOcr, billOcr] = await Promise.all([
+            ocrService.processFile(rejectionPath),
+            ocrService.processFile(billPath)
+        ]);
+
+        console.log('OCR Completed.');
+        console.log('Rejection:', rejectionOcr.text.substring(0, 50) + '...');
+        console.log('Bill:', billOcr.text.substring(0, 50) + '...');
+
+
+        // --- Date Validation (Relaxed) ---
+        // Only validate if ALL dates are provided.
+        if (admissionDate && dischargeDate && submissionDate) {
+            const admit = new Date(admissionDate);
+            const discharge = new Date(dischargeDate);
+            const submission = new Date(submissionDate);
+
+            let validDates = true;
+            if (isNaN(admit.getTime()) || isNaN(discharge.getTime()) || isNaN(submission.getTime())) {
+                validDates = false; // Could throw error, but let's just ignore invalid dates for robust mock
+            }
+
+            if (validDates) {
+                if (discharge < admit) {
+                    return next(new AppError('Discharge date cannot be before admission date', 400));
+                }
+                if (submission < discharge) {
+                    return next(new AppError('Claim submission date cannot be before discharge date', 400));
+                }
+            }
+        }
+
+        // Return mock analysis ID
+        const analysisId = uuidv4();
+
+        // In future: Store OCR results + Analysis ID in DB.
+
+        res.status(200).json({
+            status: 'success',
+            data: {
+                analysisId,
+                status: 'completed',
+                message: 'Analysis completed successfully',
+                ocrPreview: { // Optional: Return debug info
+                    rejectionPreview: rejectionOcr.text.substring(0, 100),
+                    billPreview: billOcr.text.substring(0, 100)
+                }
+            }
+        });
+    } catch (err) {
+        next(err);
+    }
+};
+
+export const getAnalysisResult = (req: Request, res: Response, next: NextFunction) => {
+    const { analysisId } = req.params;
+
+    // Return the specific mock response required by frontend
+    const mockResult = {
+        analysisId,
+        issue: "Pre-Auth Scope Mismatch",
+        description: "Based on our analysis, there may have been a procedural error regarding the pre-authorization scope vs final billing. The insurer likely rejected the claim claiming the procedure was outside the authorized limit, but failed to account for emergency exigencies documented in the discharge summary.",
+        checks: [
+            "Approved Amount vs. Procedure Billed",
+            "Missing Revision Request",
+            "Timeline Compliance Check",
+            "Policy Exclusion Verification"
+        ],
+        confidenceScore: 85,
+        status: "completed"
+    };
+
+    res.status(200).json({
+        status: 'success',
+        data: mockResult
+    });
+};
