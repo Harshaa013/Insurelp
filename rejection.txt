@@ -1,0 +1,46 @@
+------------------------------------------------------------
+ABC HEALTH INSURANCE COMPANY LTD.
+Claims Department
+------------------------------------------------------------
+
+Date: 20/02/2026
+Claim No: CLM987654321
+Policy No: POL123456789
+
+To,
+Mr. Rahul Kumar
+
+Subject: Claim Rejection – Medical Reimbursement Claim
+
+Dear Sir/Madam,
+
+We refer to your claim submitted for hospitalization of Mr. Rahul Kumar
+from 01/01/2026 to 05/01/2026.
+
+After careful review of the submitted documents, we regret to inform you
+that your claim has been rejected due to the following reasons:
+
+1. Required documents such as complete discharge summary and
+   detailed itemized hospital bill have not been submitted.
+
+2. Discrepancies have been observed between the submitted bill
+   and supporting documents.
+
+3. The claim has been submitted beyond the stipulated timeline
+   as per policy conditions.
+
+In view of the above, we are unable to process your claim.
+
+However, you may resubmit the claim with complete and valid documents
+within the permissible time, if applicable.
+
+If you require any further clarification, you may contact our customer
+care or write to our Grievance Redressal Officer.
+
+Thank you for your understanding.
+
+Yours sincerely,
+Claims Team
+ABC Health Insurance Company Ltd.
+
+------------------------------------------------------------
